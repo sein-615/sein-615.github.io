@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+
+
+
+    <style>
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
+}
+body {
+  background-color: #ffffff;
+}
+.container {
+  width: 50vw;
+  max-width: 20em;
+  background-color: #ffffff;
+  padding: 1em 2em;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top:50%;
+  left: 50%;
+}
+.inp-wrapper {
+  display: flex;
+  text-align: center;
+  justify-content: space-around;
+  gap: 0.1em;
+}
+label {
+  color: #000000;
+  display: block;
+  font-weight: 100;
+}
+input[type="date"] {
+  font-size: 12px;
+  padding: 1em;
+  color: #000000;
+  border: none;
+  border-radius: 1em;
+  margin-top: 0.3em;
+}
+::-webkit-calendar-picker-indicator {
+  background-color: #ffffff;
+  padding: 0.1em;
+  cursor: pointer;
+  border-radius: 2em;
+}
+button {
+  display: block;
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 15px;
+  margin: 1em auto 2em auto;
+  border: none;
+  padding: 0.7em 2em;
+  border-radius: 1em;
+  font-weight: 600;
+}
+
+#output {
+  background-color: rgba(255, 255, 255, 0.15);
+  text-align: center;
+  padding: 1em;
+  color: #656565;
+  font-size: 1em;
+  letter-spacing: 0.05em;
+    border-radius: 1em;
+}
+#output span {
+  color: #000000;
+  font-size: 2em;
+  font-weight: 600;
+}
+@media screen and (max-width: 300px) {
+  .container {
+    padding: 1em 2em;
+  }
+  .inp-wrapper {
+    flex-direction: column;
+  }
+  .date-wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+
+    </style>
+
+  </head>
+
+  <body>
+
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Difference Between 2 Dates</title>
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="inp-wrapper">
+        <div class="date-wrapper">
+          <label for="date-1">Start Date</label>
+          <input type="date" id="date-1" />
+        </div>
+        <div class="date-wrapper">
+          <label for="date-2">End Date</label>
+          <input type="date" id="date-2" />
+        </div>
+      </div>
+      <button id="submit">Submit</button>
+      <div id="output">Select the dates to get started</div>
+    </div>
+    <!-- Script -->
+    <script src="script.js"></script>
+  </body>
+</html>
+
+
+    <script>
+
+//Declaring and initializing variables
+let submit = document.getElementById("submit");
+let output = document.getElementById("output");
+
+submit.addEventListener("click", () => {
+  //Create a Date object from input value
+  let date1 = new Date(document.getElementById("date-1").value);
+  let date2 = new Date(document.getElementById("date-2").value);
+
+  //Check if the input dates are valid
+  //If valid calculate the difference
+  if (date1.getTime() && date2.getTime()) {
+    //Calculate difference in time using getTime function
+    //getTime calculates number of years since January 1,1970
+    let timeDifference = date2.getTime() - date1.getTime();
+
+    //Since this value is in milliseconds we need to convert it into days
+    //We want the difference to be a non-negative number. Hence we use Math.abs()
+    let dayDifference = Math.abs(timeDifference / (1000 * 3600 * 24));
+    output.innerHTML = `Difference between the two dates is <span>${dayDifference}</span> days`;
+  }
+
+  //Else display that the input is valid
+  else {
+    output.innerHTML = "Please select a valid date";
+  }
+});
+
+    </script>
+
+  </body>
+
+  </html>
